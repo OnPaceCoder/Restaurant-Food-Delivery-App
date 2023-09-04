@@ -13,5 +13,26 @@ export type ProductTypes = {
   desc?: string;
   img?: string;
   price: number;
-  options?: { title: string; addtionalPrice: number }[];
+  options?: { title: string; additionalPrice: number }[];
+};
+
+export type OrderTypes = {
+  id: string;
+  userEmail: string;
+  products: CartItemType[];
+  title: string;
+  desc?: string;
+  img?: string;
+  price: number;
+  createdAt: Date;
+  intent_id?: string;
 }[];
+
+export type CartItemType = {
+  id: string;
+  title: string;
+  img?: string;
+  price: number;
+  optionTitle?: string;
+  quantity: number;
+};
