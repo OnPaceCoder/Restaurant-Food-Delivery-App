@@ -1,7 +1,7 @@
 import { prisma } from "@/utils/connect";
 import { NextRequest, NextResponse } from "next/server";
 
-// Fetch all categories
+// Fetch all Products
 export const GET = async (req: NextRequest) => {
   const { searchParams } = new URL(req.url);
   const cat = searchParams.get("cat");
