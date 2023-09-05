@@ -1,19 +1,22 @@
+"use client";
 import { featuredProducts } from "@/data";
+import { useCartStore } from "@/utils/store";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 
 const page = () => {
-  // const {products , totalItems , totalPrice , removeFromCart} = useCartStore();
+  const { products, totalItems, totalPrice, removeFromCart } = useCartStore();
 
-  const totalPrice = 20;
-  const totalItems = 4;
+  useEffect(() => {
+    useCartStore.persist.rehydrate();
+  }, []);
 
   return (
     <div className="h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] flex flex-col text-red-500 lg:flex-row">
       {/* Product container */}
       <div className="h-1/2 p-4 flex flex-col justify-center overflow-y-scroll lg:h-full lg:w-2/3 2xl:w-1/2 lg:px-10 xl:px-20 ">
         <div className="py-12"></div>
-        {featuredProducts.map((item) => (
+        {products.map((item) => (
           <div
             className="flex items-center justify-between mt-12"
             key={item.id}
@@ -29,12 +32,17 @@ const page = () => {
             )}
             <div className="flex flex-2 flex-col">
               <h1 className="uppercase text-xl font-bold">
-                {item.title} x {item.id}
+                {item.title} <span className="text-xs">x</span> {item.quantity}
               </h1>
-              <span>{item.title}</span>
-              <h2 className="flex flex-2">${item.price}</h2>
+              <span>{item.optionTitle}</span>
+              <h2 className="flex flex-2">${Number(item.price).toFixed(2)}</h2>
             </div>
-            <span className="cursor-pointer flex  ">X</span>
+            <span
+              className="cursor-pointer flex  "
+              onClick={() => removeFromCart(item)}
+            >
+              X
+            </span>
           </div>
         ))}
       </div>
