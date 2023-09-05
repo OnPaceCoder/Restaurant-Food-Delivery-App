@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.mobile-menu {
+  @apply w-full text-center hover:bg-slate-100 h-20 hover:text-stone-400 flex  items-center justify-center hover:font-bold hover:scale-110 ease-out duration-300;
+}
