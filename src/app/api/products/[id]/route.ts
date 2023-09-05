@@ -51,5 +51,10 @@ export const DELETE = async (
         { status: 500 }
       );
     }
+  } else {
+    return new NextResponse(
+      JSON.stringify({ message: "You are not allowed!" }),
+      { status: 403 }
+    );
   }
 };
