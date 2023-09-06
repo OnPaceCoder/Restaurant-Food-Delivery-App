@@ -1,5 +1,6 @@
 import { prisma } from "@/utils/connect";
 import { NextRequest, NextResponse } from "next/server";
+import { JsxEmit } from "typescript";
 
 // Fetch all Products
 export const GET = async (req: NextRequest) => {
@@ -16,6 +17,24 @@ export const GET = async (req: NextRequest) => {
   } catch (error) {
     return new NextResponse(
       JSON.stringify({ message: "Something went wrong!" }),
+      { status: 500 }
+    );
+  }
+};
+
+//Create a Product
+
+export const POST = async (req: NextResponse) => {
+  try {
+    const body = await req.json();
+    const product = await prisma.product.create({
+      data: body,
+    });
+    return new NextResponse(JSON.stringify(product), { status: 201 });
+  } catch (error) {
+    console.log(error);
+    return new NextResponse(
+      JSON.stringify({ message: "Something went wrong" }),
       { status: 500 }
     );
   }
